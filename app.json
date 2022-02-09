@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "qify",
+    "slug": "qify",
+    "scheme": "qify",
+    "version": "1.0.0",
+    "githubUrl": "https://github.com/drunkeen/qify_react_native",
+    "orientation": "portrait",
+    "icon": "./assets/qify/icons/qify_1000.png",
+    "splash": {
+      "image": "./assets/favicon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "assets/**/*",
+      "assets/no_image.svg",
+      "assets/spotify-toggle.png"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "dev.xiaojiba.qify"
+    },
+    "android": {
+      "package": "dev.xiaojiba.qify",
+      "versionCode": 1,
+      "permissions": ["CAMERA"]
+    },
+    "androidStatusBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#1E1E1E",
+      "translucent": false
+    },
+    "androidNavigationBar": {
+      "barStyle": "light-content",
+      "backgroundColor": "#1E1E1E"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "notification": {
+      "icon": "./assets/qify/icons/qify_100.png",
+      "color": "#26FF9E"
+    }
+  }
+}
