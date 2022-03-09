@@ -24,10 +24,13 @@ const SearchSong = ({ style, input, roomId }: SearchSongProps) => {
   const [search, setSearch] = input;
 
   const updateSearch = (text: string) => {
-    console.log("Issou", text);
     setSearch(text);
-
     clearTimeout(myTimeout);
+
+    if (text === "") {
+      return;
+    }
+
     const timeout = setTimeout(async () => {
       const res = await axios.get(
         `http://127.0.0.1:8080/search/${roomId}?q=${text}&offset=0`

@@ -52,8 +52,13 @@ const Pause = ({ style }: ImageProps) =>
   });
 
 const RoomPlayer = ({ currentSong, playState }: RoomPlayerProps) => {
-  const image = currentSong?.image || "assets/no_image.svg";
-  const title = currentSong?.title || "None";
+  if (!currentSong) {
+    return <></>;
+  }
+
+  const image = currentSong.image || "assets/no_image.svg";
+  const title = currentSong.title || "None";
+  const duration = currentSong.duration_ms || 3000;
 
   const [playing, setPlaying] = playState;
   const IconPlayer = playing === true ? Pause : Play;
@@ -69,7 +74,7 @@ const RoomPlayer = ({ currentSong, playState }: RoomPlayerProps) => {
     Animated.timing(fadeAnim, {
       useNativeDriver: true,
       toValue: 1,
-      duration: 3 * 1000,
+      duration,
       easing: Easing.linear,
     }).start();
 
@@ -97,7 +102,7 @@ const RoomPlayer = ({ currentSong, playState }: RoomPlayerProps) => {
       Animated.timing(fadeAnim, {
         useNativeDriver: true,
         toValue: 1,
-        duration: 3 * 1000,
+        duration,
         easing: Easing.linear,
       }).start();
       console.log("Play");

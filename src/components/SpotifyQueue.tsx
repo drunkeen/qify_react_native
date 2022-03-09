@@ -13,7 +13,9 @@ type Song = {
   title: string;
   album: string;
   image: string;
-  key?: string;
+  duration_ms: number;
+  uri: string;
+  id: number;
 };
 
 type ItemProps = {
