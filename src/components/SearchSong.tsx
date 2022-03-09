@@ -30,7 +30,7 @@ const SearchSong = ({ style, input, roomId }: SearchSongProps) => {
     clearTimeout(myTimeout);
     const timeout = setTimeout(async () => {
       const res = await axios.get(
-        `http://127.0.0.1:8080/search/${roomId}?q=${search}&offset=0`
+        `http://127.0.0.1:8080/search/${roomId}?q=${text}&offset=0`
       );
       if (res.status !== 200 || !res.data.success) {
         return;

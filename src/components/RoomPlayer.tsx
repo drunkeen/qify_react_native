@@ -52,7 +52,8 @@ const Pause = ({ style }: ImageProps) =>
   });
 
 const RoomPlayer = ({ currentSong, playState }: RoomPlayerProps) => {
-  const image = currentSong.image || "assets/no_image.svg";
+  const image = currentSong?.image || "assets/no_image.svg";
+  const title = currentSong?.title || "None";
 
   const [playing, setPlaying] = playState;
   const IconPlayer = playing === true ? Pause : Play;
@@ -110,7 +111,7 @@ const RoomPlayer = ({ currentSong, playState }: RoomPlayerProps) => {
       <View style={styles.container}>
         <View style={styles.containerInfo}>
           <Image source={{ uri: image }} style={styles.image} />
-          <Text style={{ fontWeight: "bold" }}>{currentSong.title}</Text>
+          <Text style={{ fontWeight: "bold" }}>{title}</Text>
         </View>
 
         <View style={styles.containerInfo}>
