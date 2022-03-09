@@ -60,6 +60,12 @@ const styles = StyleSheet.create({
   },
 });
 
+const cleanString = (s: string) => {
+  s = s.replace(/[ \n\t]+-.*/i, "");
+  s = s.replace(/[ \n\t]\(.*\)/i, "");
+  return s;
+};
+
 const Room = ({ route, window, navigation }: NavProps) => {
   const roomId = route.params ? route.params["id"] : "ERROR";
 
@@ -94,6 +100,12 @@ const Room = ({ route, window, navigation }: NavProps) => {
     const data = res.data.data;
     console.log(data);
     const songs = data;
+
+    songs.map((s: Song) => {
+      delete s.room_id;
+      s.title = cleanString(s.title);
+      s.album = cleanString(s.album);
+    });
 
     setSongs(songs);
   }, []);

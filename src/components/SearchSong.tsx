@@ -17,6 +17,15 @@ type SearchSongProps = {
   roomId: string;
 };
 
+const pushSong = async (song: Song, roomId: string) => {
+  const res = await axios.post(`http://127.0.0.1:8080/songs/${roomId}`, song);
+  if (res.status !== 200 || !res.data.success) {
+    return false;
+  }
+
+  return true;
+};
+
 const SearchSong = ({ style, input, roomId }: SearchSongProps) => {
   const [results, setResults] = React.useState<Song[]>([]);
   const [myTimeout, setMyTimeout] = React.useState(null as any);
@@ -66,7 +75,7 @@ const SearchSong = ({ style, input, roomId }: SearchSongProps) => {
             <SpotifyPicker
               song={props.item}
               index={props.index}
-              onClick={() => console.log(`Song: ${props.item.title}`)}
+              onClick={() => pushSong(props.item, roomId)}
             />
           )}
         />
