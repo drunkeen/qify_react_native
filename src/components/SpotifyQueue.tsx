@@ -67,7 +67,10 @@ const SpotifyQueue = ({ song, index }: ItemProps) => {
   const style: ViewStyle = index === 0 ? {} : { marginTop: 4 };
 
   return (
-    <View style={[style, styles.card]}>
+    <Pressable
+      style={[style, styles.card]}
+      onPress={() => console.log(song.title)}
+    >
       <Image
         style={styles.image}
         source={{ uri: song.image }}
@@ -86,7 +89,7 @@ const SpotifyQueue = ({ song, index }: ItemProps) => {
           </Text>
         )}
       </View>
-    </View>
+    </Pressable>
   );
 };
 

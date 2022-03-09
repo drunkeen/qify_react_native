@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
     padding: 8,
 
     backgroundColor: "#189453",
+
+    zIndex: 500,
   },
   textContainer: {
     flex: 1,

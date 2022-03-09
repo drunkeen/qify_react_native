@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import {
   Dimensions,
@@ -13,9 +14,10 @@ type SearchSongProps = {
   addSong: () => void;
   style?: ViewStyle;
   input: [string, React.Dispatch<React.SetStateAction<string>>];
+  roomId: string;
 };
 
-const SearchSong = ({ style, input }: SearchSongProps) => {
+const SearchSong = ({ style, input, roomId }: SearchSongProps) => {
   const [results, setResults] = React.useState<Song[]>([]);
   const [myTimeout, setMyTimeout] = React.useState(null as any);
 
@@ -26,17 +28,18 @@ const SearchSong = ({ style, input }: SearchSongProps) => {
     setSearch(text);
 
     clearTimeout(myTimeout);
-    const timeout = setTimeout(() => {
-      setResults([
-        {
-          title: "Title1",
-          album: "Album1",
-          image:
-            "https://i.pinimg.com/550x/52/6e/7b/526e7b2ce4e4f848e4af723382d698c9.jpg",
-          key: "Issou",
-        },
-      ]);
-    }, 400);
+    const timeout = setTimeout(async () => {
+      const res = await axios.get(
+        `http://127.0.0.1:8080/search/${roomId}?q=${search}&offset=0`
+      );
+      if (res.status !== 200 || !res.data.success) {
+        return;
+      }
+      const data = res.data.data;
+      const songs = data.items;
+
+      setResults(songs);
+    }, 200);
     setMyTimeout(timeout);
   };
 
@@ -60,7 +63,7 @@ const SearchSong = ({ style, input }: SearchSongProps) => {
             <SpotifyPicker
               song={props.item}
               index={props.index}
-              onClick={() => console.log(`Index: ${props.index}`)}
+              onClick={() => console.log(`Song: ${props.item.title}`)}
             />
           )}
         />

@@ -103,6 +103,7 @@ const Room = ({ route, window, navigation }: NavProps) => {
             </Pressable>
           )}
           <SearchSong
+            roomId={roomId}
             addSong={addSong}
             input={[search, setSearch]}
             style={{ flex: 4 }}
@@ -118,7 +119,7 @@ const Room = ({ route, window, navigation }: NavProps) => {
 
         <FlatList
           style={{ width: "100%" }}
-          data={songs}
+          data={(search === "" && songs) || []}
           renderItem={(props) => (
             <SpotifyQueue song={props.item} index={props.index} />
           )}
