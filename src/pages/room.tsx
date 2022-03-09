@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import {
   StyleSheet,
@@ -82,12 +83,24 @@ const Room = ({ route, window, navigation }: NavProps) => {
 
   const addSong = () => {};
 
-  const [songs, setSongs] = React.useState<Song[]>([
-    { ...song1, key: "1" },
-    { ...song2, key: "2" },
-    { ...song1, key: "10" },
-    { ...song2, key: "20" },
-  ]);
+  const [songs, setSongs] = React.useState<Song[]>([]);
+
+  let callBack = React.useCallback(async () => {
+    const res = await axios.get(`http://127.0.0.1:8080/songs/${roomId}`);
+    if (res.status !== 200 || !res.data.success) {
+      return;
+    }
+
+    const data = res.data.data;
+    console.log(data);
+    const songs = data;
+
+    setSongs(songs);
+  }, []);
+
+  React.useEffect(() => {
+    callBack();
+  }, []);
 
   return (
     <>
