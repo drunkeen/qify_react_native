@@ -2,26 +2,30 @@ import React from "react";
 import {
   Dimensions,
   Image,
+  ImageStyle,
   Platform,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import Logo from "../../assets/qify/qify.svg";
+import LogoImage from "../../assets/qify/qify.svg";
 
 const fontSize = Dimensions.get("window").width / 5.5;
 
+type LogoProps = {
+  style: ImageStyle;
+};
+
+const Logo = ({ style }: LogoProps) =>
+  Platform.select({
+    web: <Image style={style} source={require("../../assets/qify/qify.svg")} />,
+
+    default: <LogoImage style={style} />,
+  });
+
 const Title = () => (
   <View style={styles.titleContainer}>
-    {Platform.select({
-      web: (
-        <Image
-          style={styles.qifyLogo}
-          source={require("../../assets/qify/qify.svg")}
-        />
-      ),
-      default: <Logo style={styles.qifyLogo} />,
-    })}
+    <Logo style={styles.qifyLogo} />
     <Text style={[styles.qifyText, { fontSize }]}>Qify</Text>
   </View>
 );
