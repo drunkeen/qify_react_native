@@ -117,6 +117,7 @@ const Room = ({ route, window, navigation }: NavProps) => {
         </Pressable>
 
         <FlatList
+          style={{ width: "100%" }}
           data={songs}
           renderItem={(props) => (
             <SpotifyQueue song={props.item} index={props.index} />

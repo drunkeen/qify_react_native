@@ -5,6 +5,8 @@ import {
   Easing,
   GestureResponderEvent,
   Image,
+  ImageStyle,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -12,14 +14,42 @@ import {
 } from "react-native";
 import { Song } from "./SpotifyQueue";
 
-import Next from "../../assets/player/next1.svg";
-import Play from "../../assets/player/play1.svg";
-import Pause from "../../assets/player/pause1.svg";
+import ImageNext from "../../assets/player/next1.svg";
+import ImagePlay from "../../assets/player/play1.svg";
+import ImagePause from "../../assets/player/pause1.svg";
 
 type RoomPlayerProps = {
   currentSong: Song | null;
   playState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 };
+
+type ImageProps = {
+  style: ImageStyle;
+};
+
+const Next = ({ style }: ImageProps) =>
+  Platform.select({
+    web: (
+      <Image style={style} source={require("../../assets/player/next1.svg")} />
+    ),
+    default: <ImageNext style={style} />,
+  });
+
+const Play = ({ style }: ImageProps) =>
+  Platform.select({
+    web: (
+      <Image style={style} source={require("../../assets/player/play1.svg")} />
+    ),
+    default: <ImagePlay style={style} />,
+  });
+
+const Pause = ({ style }: ImageProps) =>
+  Platform.select({
+    web: (
+      <Image style={style} source={require("../../assets/player/pause1.svg")} />
+    ),
+    default: <ImagePause style={style} />,
+  });
 
 const RoomPlayer = ({ currentSong, playState }: RoomPlayerProps) => {
   const image = currentSong.image || "assets/no_image.svg";
@@ -85,29 +115,30 @@ const RoomPlayer = ({ currentSong, playState }: RoomPlayerProps) => {
 
         <View style={styles.containerInfo}>
           <Pressable onPress={playPause}>
-            <IconPlayer height={50} width={50} />
+            <IconPlayer style={{ height: 50, width: 50 }} />
           </Pressable>
           <View style={{ width: 12 }} />
           <Pressable onPress={() => console.log("Next")}>
-            <Next height={36} width={36} />
+            <Next style={{ height: 36, width: 36 }} />
           </Pressable>
         </View>
       </View>
 
       <Animated.View
-        style={{
-          ...styles.player,
-          transform: [
-            {
-              translateX: fadeAnim.interpolate({
-                inputRange: [0, 1],
-                outputRange: [-Dimensions.get("window").width / 2, 0],
-              }),
-            },
-            { scaleX: fadeAnim },
-          ],
-          left: 0,
-        }}
+        style={[
+          styles.player,
+          {
+            transform: [
+              {
+                translateX: fadeAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [-Dimensions.get("window").width / 2, 0],
+                }),
+              },
+              { scaleX: fadeAnim },
+            ],
+          },
+        ]}
       ></Animated.View>
     </>
   );
@@ -120,6 +151,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#42FFB7",
     height: playerHeight,
     bottom: 0,
+    left: 0,
   },
   container: {
     position: "absolute",

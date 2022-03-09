@@ -1,12 +1,27 @@
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import Logo from "../../assets/qify/qify.svg";
 
 const fontSize = Dimensions.get("window").width / 5.5;
 
 const Title = () => (
   <View style={styles.titleContainer}>
-    <Logo style={styles.qifyLogo} />
+    {Platform.select({
+      web: (
+        <Image
+          style={styles.qifyLogo}
+          source={require("../../assets/qify/qify.svg")}
+        />
+      ),
+      default: <Logo style={styles.qifyLogo} />,
+    })}
     <Text style={[styles.qifyText, { fontSize }]}>Qify</Text>
   </View>
 );
